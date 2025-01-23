@@ -1,0 +1,11 @@
+﻿numpy
+pandas
+matplotlib
+opencv-python
+tensorflow
+ultralytics
+scikit-learn
+datasets
+tesseract
+fiftyone
+pytesseract

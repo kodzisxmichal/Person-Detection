@@ -1,0 +1,5 @@
+﻿path: C:\Users\majst\PycharmProjects\PythonProject\data\YOLO
+train: train
+val: valid
+names:
+    0: person
