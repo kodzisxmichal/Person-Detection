@@ -50,4 +50,3 @@ output_image = draw_boxes(original_image, person_boxes)
 
 # wyswietlenie i zapisanie zdjecia
 output_image.show()
-# output_image.save("output.jpg")

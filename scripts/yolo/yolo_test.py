@@ -15,15 +15,15 @@ def display_image(image, title="Image"):
 
 model = ultralytics.YOLO(model_path)
 
-# Odczytanie zdjęcia i przewidywanie obiektów
+# odczytanie zdjecia i przewidywanie obiektow
 image = cv2.imread(image_path)
 results = model.predict(image, conf=0.5)
 
-data = results[0]  # Pobranie wyników dla pierwszego zdjęcia
-annotated_image = data.plot()  # Obraz z ramkami
+data = results[0]  # pobranie wynikow dla pierwszego zdjecia
+annotated_image = data.plot()  # obraz z ramkami
 
-bbox = data.boxes[0].xyxy[0].tolist()  # Współrzędne bbox: [x_min, y_min, x_max, y_max]
+bbox = data.boxes[0].xyxy[0].tolist()  # wspolrzedne bbox: [x_min, y_min, x_max, y_max]
 
-
-# Wyświetlenie obrazu z adnotacjami
+# wyswietlenie obrazu z adnotacjami
 display_image(annotated_image)
+
