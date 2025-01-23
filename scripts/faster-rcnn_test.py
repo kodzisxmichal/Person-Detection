@@ -2,7 +2,7 @@
 from torchvision import models, transforms
 from PIL import Image, ImageDraw
 from torchvision.models.detection import FasterRCNN_ResNet50_FPN_Weights
-from sklearn.metrics import precision_score, recall_score, f1_score
+
 
 image_path = "data/COCO/test/clip_main_lobby_Tan_mp4-4_jpg.rf.73c9f71a7cc423cd73469e95acfc3894.jpg"
 
@@ -15,11 +15,9 @@ def preprocess_image(image_path):
     image = Image.open(image_path).convert("RGB")
     return transform(image), image
 
-
-# Define a function to perform inference
+# detekcja
 def detect_people(image_tensor, model, threshold=0.5):
-    with torch.no_grad(): # wylaczenie gradientow - przyspiesza proces i oszczedza pamiec
-        predictions = model([image_tensor])
+    predictions = model([image_tensor])
 
     boxes = predictions[0]['boxes']
     labels = predictions[0]['labels']

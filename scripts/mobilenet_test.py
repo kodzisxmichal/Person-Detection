@@ -1,6 +1,6 @@
 ﻿import cv2
 import matplotlib.pyplot as plt
-from sklearn.metrics import precision_score, recall_score, f1_score
+
 
 
 # ścieżki do plików modelu MobileNetSSD

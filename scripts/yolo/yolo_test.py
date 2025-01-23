@@ -1,7 +1,7 @@
 ﻿import cv2
 import ultralytics
 import matplotlib.pyplot as plt
-from sklearn.metrics import precision_score, recall_score, f1_score
+
 
 model_path = "runs/detect/train10/weights/best.pt"
 image_path = "data/YOLO/test/images/clip_main_lobby_Tan_mp4-4_jpg.rf.73c9f71a7cc423cd73469e95acfc3894.jpg"
