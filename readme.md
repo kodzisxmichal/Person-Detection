@@ -14,10 +14,15 @@ Celem jest nauka AI
 2. Zainstaluj PyTorch:
    ```bash 
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-3. Zainstaluj wymagane biblioteki:
+3. Zainstaluj opencv:
+   ```bash 
+   pip install opencv-python
+5. Zainstaluj Ultralytics:
+   ```bash
+   pip install ultralytics
+4. Zainstaluj wymagane biblioteki:
    ```bash
    pip install -r requirements.txt
-   
 4. Yolov8
    ```bash
    python.exe scripts/yolo_test.py
