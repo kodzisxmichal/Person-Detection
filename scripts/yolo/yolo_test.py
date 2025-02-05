@@ -124,5 +124,5 @@ for image_path in images:
     tp, fp, fn = match_predictions(pred_boxes, gt_boxes)
     precision, recall, f1 = calculate_metrics(tp, fp, fn)
 
-print(f"Precision: {precision:.2f}, Recall: {recall:.2f}, F1-score: {f1:.2f}")
+print("Precision: {precision:.2f}, Recall: {recall:.2f}, F1-score: {f1:.2f}")
 
