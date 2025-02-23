@@ -46,8 +46,8 @@ def draw_boxes(image, boxes):
 
 # Loads ground truths labels for a specific image from COCO json file
 def load_coco_labels(annotation_path, image_name):
-    with open(annotation_path, "r") as f:
-        data = json.load(f)
+    with open(annotation_path, "r") as file:
+        data = json.load(file)
 
     # Find image_id for the given image
     image_id = None
@@ -56,9 +56,6 @@ def load_coco_labels(annotation_path, image_name):
             image_id = img["id"]
             width, height = img["width"], img["height"]
             break
-
-    if image_id is None:
-        raise ValueError(f"Image {image_name} not found in annotations.")
 
     # Extract bounding boxes for the image
     gt_boxes = []

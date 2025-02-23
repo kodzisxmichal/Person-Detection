@@ -5,9 +5,9 @@ import os
 import glob
 
 
-# ścieżki do plików modelu MobileNetSSD
-frozen_path = "models/frozen_inference_graph.pb"  # Wagi pretrenowanego modelu
-config_path = "models/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"  # Architektura sieci
+# Paths
+frozen_path = "models/frozen_inference_graph.pb"  # Weights
+config_path = "models/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"  # Network Architecture
 coco_labels = "models/coco.names"
 images_path = "data/COCO/test/"
 
@@ -15,8 +15,8 @@ tp_all, fp_all, fn_all = 0, 0, 0
 
 # Loads ground truths labels for a specific image from COCO json file
 def load_coco_labels(annotation_path, image_name):
-    with open(annotation_path, "r") as f:
-        data = json.load(f)
+    with open(annotation_path, "r") as file:
+        data = json.load(file)
 
     # Find image_id for the given image
     image_id = None
@@ -24,9 +24,6 @@ def load_coco_labels(annotation_path, image_name):
         if img["file_name"] == image_name:
             image_id = img["id"]
             break
-
-    if image_id is None:
-        raise ValueError(f"Image {image_name} not found in annotations.")
 
     # Extract bounding boxes for the image
     gt_boxes = []
@@ -85,15 +82,15 @@ def calculate_metrics(tp, fp, fn):
     return precision, recall, f1
 
 
-# wczytanie modelu
+# Loading model
 model = cv2.dnn_DetectionModel(frozen_path, config_path)
 classLabels = []
 
-# wczytanie etykiet z pliku coco.names
+# Reading classes from coco file
 with open(coco_labels, 'rt') as file:
     classLabels = file.read().rstrip('\n').split('\n')
 
-# konfiguracja modelu
+# Model configuration
 model.setInputSize(320,320)
 model.setInputScale(1.0 / 127.5)
 model.setInputMean((127.5, 127.5, 127.5))
@@ -109,30 +106,29 @@ for image_path in images:
     image_directory = os.path.dirname(image_path)
     image_name = os.path.basename(image_path)
 
-    # wczytanie zdjecia
+    # Loading images
     img = cv2.imread(image_path)
 
-    # detekcja
+    # Detection
     class_ids, confidences, boxes = model.detect(img, confThreshold=0.5)
 
-    # przechdozenie przez obiekty i rysowanie boxow
+    # Iterating boxes and drawing bounding box
     for class_id, confidence, box in zip(class_ids, confidences, boxes):
         label = classLabels[class_id - 1]
         if label == "person":
             left, top, width, height = box
 
-            # rysowanie ramki i etykiety
+            # Drawing bounding box
             cv2.rectangle(img, (left, top), (left + width, top + height), (255, 0, 0), 2)
             cv2.putText(img, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-    # konwersja obrazu z BGR na RGB
+    # Image covertion from BGR to RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    # wyświetlenie obrazu za pomocą Matplotlib
+    # Diplaying image Matplotlib
     plt.figure(figsize=(10, 6))
     plt.imshow(img_rgb)
     plt.axis("off")
-    plt.title("Wyniki wykrywania")
     plt.show()
 
     # Paths

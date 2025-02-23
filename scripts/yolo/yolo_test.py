@@ -22,8 +22,8 @@ def yolo_to_xyxy(label_path, image_shape):
     h, w = image_shape[:2]
     bboxes = []
 
-    with open(label_path, "r") as f:
-        for line in f:
+    with open(label_path, "r") as file:
+        for line in file:
             data = line.split()
             class_id = int(data[0])
             x_center, y_center, width, height = map(float, data[1:])
